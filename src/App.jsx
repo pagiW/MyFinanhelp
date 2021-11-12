@@ -6,6 +6,7 @@ import Signup from './containers/Signup';
 import Main from './containers/Main';
 import Salary from './containers/Salary';
 import Login from './containers/Login';
+import NotFound from './containers/NotFound';
 import './style/app.scss';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
                 <Route exact path='/salary' component={Salary} />
                 <Route exact path='/signup' component={Signup} />
                 <Route exact path='/login' component={Login} />
+                <Route component={NotFound} />
             </Switch>
         </BrowserRouter>
     );
