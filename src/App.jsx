@@ -11,7 +11,7 @@ import './style/app.scss';
 
 const App = () => {
     return (
-        <BrowserRouter basename='/'>
+        <BrowserRouter>
             <Layout />
             <Switch>
                 <Route exact path='/' component={Move} />
