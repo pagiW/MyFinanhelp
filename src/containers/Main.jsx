@@ -1,13 +1,37 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { myContext } from '../myContext';
+import {getP} from '../actions';
+import axios from 'axios';
 import '../style/main.scss';
 
-const Main = ({user, users}) => {
+const Main = ({user, users, getP}) => {
     const {setSite} = useContext(myContext);
-    useEffect(() => setSite('Register your salary'), []);
+    const [products, setProducts] = useState([]);
+    const [element, setElements] = useState([]);
+    const API = 'https://api.escuelajs.co/api/v1/products';
+    const getProduct = async () => {
+        let response = await axios(API);
+        setProducts(response.data);
+        setElements(response.data)
+    }
+    useEffect(() => {
+        setSite('Register your salary');
+        getProduct();
+    }, []);
     return ( <main className='home'>
         <h2>Counts</h2>
+        <input onChange={(e) => {const ele = products.filter(a => a.title.toLowerCase().includes(e.target.value)); setElements(ele)}} />
+        <ul>
+            {products.length > 0 ? element.map((e) => {
+                return (
+                    <li onClick={() => {if (Object.keys(user).length > 0) {getP(e)}}} key={e.id} style={{color: 'white'}}>
+                    <h2>{e.title}</h2>
+                    {e.price} {e.id}
+                    </li>
+                )
+            }): <h1 style={{color: 'white'}}>Loading...</h1>}
+        </ul>
     </main> );
 }
 
@@ -16,4 +40,8 @@ const mapState = state => ({
     users: state.users
 })
 
-export default connect(mapState)(Main);
+const mapDispatch = {
+    getP
+}
+
+export default connect(mapState, mapDispatch)(Main);

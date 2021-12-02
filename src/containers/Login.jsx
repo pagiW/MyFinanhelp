@@ -1,42 +1,39 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { getUser } from '../actions';
 import { myContext } from '../myContext';
 import '../style/form.scss';
 
 const Login = ({history, getUser, users}) => {
-    let [myUser, setUser] = useState({
-        user: '',
-        password: '',
-        email: ''
-    });
+    const form = useRef(null);
     const {setSite} = useContext(myContext);
-    useEffect(() => setSite('Go to the Home'), []);
-    const change = (e) => {
-        setUser({
-            ...myUser,
-            [e.target.name]: e.target.value
-        });
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData(form.current);
+        const data = {
+            user: formData.get('user'),
+            password: formData.get('password'),
+            email: formData.get('email')
+        }
+        const isThere = users.some(user => user.user === data.user && user.password === data.password && user.email === data.email);
+        if (isThere) {
+            const myUser = users.find(user => user.user === data.user && user.password === data.password && user.email === data.email);
+            getUser(myUser);
+            history.push('/home');
+        }
     }
+    useEffect(() => setSite('Go to the Home'), []);
     return (
         <main className='main-form'>
             <h2>Log in</h2>
-            <form className='login'>
+            <form className='login' ref={form}>
                 <label htmlFor='user'>User:</label>
-                <input onChange={change} name='user' id='user' type='text' placeholder='Enter your user' />
+                <input required name='user' id='user' type='text' placeholder='Enter your user' />
                 <label htmlFor='password'>Password:</label>
-                <input onChange={change} name='password' id='password' type='password' placeholder='Enter your password' />
+                <input required name='password' id='password' type='password' placeholder='Enter your password' />
                 <label htmlFor='email'>Email:</label>
-                <input onChange={change} name='email' id='email' type='email' placeholder='Enter your email' />
-                <button type='submit' onClick={(e) => {
-                    e.preventDefault();
-                    console.log(myUser)
-                    if (users.length > 0) {
-                        const find = users.some(user => user.user === myUser.user && user.password === myUser.password && user.email === myUser.email);
-                        console.log(find);
-                        getUser(myUser); history.push('/home')
-                    }
-                }}>Log in</button>
+                <input required name='email' id='email' type='email' placeholder='Enter your email' />
+                <button type='submit' onClick={handleSubmit}>Log in</button>
             </form>
         </main>
     );

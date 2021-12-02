@@ -9,3 +9,7 @@ export const getUser = payload => ({
 export const out = () => ({
     type: 'OUT',
 })
+export const getP = payload => ({
+    type: 'GETP',
+    payload
+})

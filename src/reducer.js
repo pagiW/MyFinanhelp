@@ -16,6 +16,13 @@ const reducer = (state, action) => {
                 ...state,
                 user: {}
             }
+        case 'GETP':
+            state.user.products.push(action.payload);
+            const update = state.users.filter(u => u.user !== state.user.user && u.email !== state.user.email && u.password !== state.user.password);
+            return {
+                ...state,
+                users: [...update, state.user]
+            }
         default:
             return state;
     }
