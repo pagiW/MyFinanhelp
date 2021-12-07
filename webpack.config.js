@@ -10,8 +10,8 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: '[name].[contenthash].js',
-        publicPath: '/'
+        filename: 'MyFinanhelp/[name].[contenthash].js',
+        publicPath: '/MyFinanhelp/'
     },
     resolve: {
         extensions: ['.js', '.jsx']

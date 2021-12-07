@@ -11,7 +11,7 @@ import './style/app.scss';
 
 const App = () => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/MyFinanhelp">
             <Layout />
             <Switch>
                 <Route exact path='/' component={Move} />
