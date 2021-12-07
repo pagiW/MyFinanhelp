@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Move from './components/Move';
 import Signup from './containers/Signup';
@@ -11,7 +11,7 @@ import './style/app.scss';
 
 const App = () => {
     return (
-        <BrowserRouter basename="/MyFinanhelp">
+        <HashRouter basename='/MyFinanhelp'>
             <Layout />
             <Switch>
                 <Route exact path='/' component={Move} />
@@ -21,7 +21,7 @@ const App = () => {
                 <Route exact path='/login' component={Login} />
                 <Route path='*' component={NotFound} />
             </Switch>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
  
