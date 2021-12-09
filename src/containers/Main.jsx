@@ -5,7 +5,7 @@ import {getP} from '../actions';
 import axios from 'axios';
 import '../style/main.scss';
 
-const Main = ({user, users, getP}) => {
+const Main = ({user, getP}) => {
     const {setSite} = useContext(myContext);
     const [products, setProducts] = useState([]);
     const [element, setElements] = useState([]);

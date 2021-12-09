@@ -11,7 +11,7 @@ import './style/app.scss';
 
 const App = () => {
     return (
-        <HashRouter basename='/MyFinanhelp'>
+        <HashRouter>
             <Layout />
             <Switch>
                 <Route exact path='/' component={Move} />
