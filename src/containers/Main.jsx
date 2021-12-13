@@ -9,7 +9,7 @@ const Main = ({user, getP}) => {
     const {setSite} = useContext(myContext);
     const [products, setProducts] = useState([]);
     const [element, setElements] = useState([]);
-    const API = 'https://api.escuelajs.co/api/v1/products';
+    const API = 'https://arcane-crag-90274.herokuapp.com/api/myFinanhelp/products';
     const getProduct = async () => {
         let response = await axios(API);
         setProducts(response.data);
@@ -21,12 +21,12 @@ const Main = ({user, getP}) => {
     }, []);
     return ( <main className='home'>
         <h2>Counts</h2>
-        <input onChange={(e) => {const ele = products.filter(a => a.title.toLowerCase().includes(e.target.value)); setElements(ele)}} />
+        <input onChange={(e) => {const ele = products.filter(a => a.name.toLowerCase().includes(e.target.value)); setElements(ele)}} />
         <ul>
             {products.length > 0 ? element.map((e) => {
                 return (
                     <li onClick={() => {if (Object.keys(user).length > 0) {getP(e)}}} key={e.id} style={{color: 'white'}}>
-                    <h2>{e.title}</h2>
+                    <h2>{e.name}</h2>
                     {e.price} {e.id}
                     </li>
                 )
